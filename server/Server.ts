@@ -3,24 +3,25 @@ import express from 'express';
 import * as path from 'path';
 
 export class Server {
+  private app: Express;
 
-    private app: Express;
+  constructor(app: Express) {
+    this.app = app;
 
-    constructor(app: Express) {
-        this.app = app;
+    this.app.use(express.static(path.resolve('./') + '/build/client'));
 
-        this.app.use(express.static(path.resolve("./") + "/build/client"));
+    this.app.get('/api', (req: Request, res: Response): void => {
+      res.send('You have reached the API!');
+    });
 
-        this.app.get("/api", (req: Request, res: Response): void => {
-            res.send("You have reached the API!");
-        });
+    this.app.get('*', (req: Request, res: Response): void => {
+      res.sendFile(path.resolve('./') + '/build/client/index.html');
+    });
+  }
 
-        this.app.get("*", (req: Request, res: Response): void => {
-            res.sendFile(path.resolve("./") + "/build/client/index.html");
-        });
-    }
-
-    public start(port: number): void {
-        this.app.listen(port, () => console.log(`Server listening at http://localhost:${port}`));
-    }
+  public start(port: number): void {
+    this.app.listen(port, () =>
+      console.log(`Server listening at http://localhost:${port}`),
+    );
+  }
 }

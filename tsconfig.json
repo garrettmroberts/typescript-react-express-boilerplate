@@ -8,12 +8,8 @@
     "esModuleInterop": true,
     "lib": ["es6"],
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "**.ts"
-  ],
-  "exclude": [
-    "client"
-  ]
+  "include": ["**.ts"],
+  "exclude": ["client"]
 }
